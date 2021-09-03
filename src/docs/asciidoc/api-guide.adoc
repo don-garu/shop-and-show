@@ -1,0 +1,46 @@
+// 예시
+= REST API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+== 계정 관리
+
+=== 계정 생성
+
+==== REQUEST
+
+include::{snippets}/user/create/http-request.adoc[]
+
+- REQUEST BODY
+
+include::{snippets}/user/create/request-fields.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/user/create/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/user/create/request-fields.adoc[]
+
+=== 계정 로그인
+
+==== REQUEST
+
+include::{snippets}/user/login/http-request.adoc[]
+
+- REQUEST PARAMS
+
+include::{snippets}/user/login/request-parameters.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/user/login/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/user/login/response-fields.adoc[]

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @Getter
@@ -26,6 +27,9 @@ public class User {
     private String password;
     private String address;
 
+    @OneToOne
+    private Merchant merchant;
+
     @Builder
     public User(Integer age, Gender gender, String name, String password, String address) {
         this.age = age;
@@ -33,5 +37,9 @@ public class User {
         this.name = name;
         this.password = password;
         this.address = address;
+    }
+
+    public void editMerchant(Merchant merchant) {
+        this.merchant = merchant;
     }
 }

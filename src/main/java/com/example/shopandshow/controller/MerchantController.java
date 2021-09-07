@@ -23,4 +23,9 @@ public class MerchantController {
     public MerchantDTO.Result login(@RequestParam Integer userId) {
         return merchantService.login(userId);
     }
+
+    @PutMapping("/deposit")
+    public MerchantDTO.Result deposit(@RequestBody MerchantDTO.Update updateDto) {
+        return merchantService.deposit(updateDto);
+    }
 }

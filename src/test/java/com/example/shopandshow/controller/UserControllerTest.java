@@ -70,8 +70,7 @@ class UserControllerTest {
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 createRequestFields(),
-                commonResponseFields()
-            ));
+                commonResponseFields()));
     }
 
     @Test
@@ -99,8 +98,7 @@ class UserControllerTest {
     private RequestParametersSnippet loginRequestParams() {
         return requestParameters(
             parameterWithName("name").description("사용자명"),
-            parameterWithName("password").description("비밀번호")
-        );
+            parameterWithName("password").description("비밀번호"));
     }
 
     private RequestFieldsSnippet createRequestFields() {
@@ -109,8 +107,7 @@ class UserControllerTest {
             fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
             fieldWithPath("address").type(JsonFieldType.STRING).description("주소"),
             fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
-            fieldWithPath("gender").type(JsonFieldType.STRING).description("성별")
-        );
+            fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"));
     }
 
     private ResponseFieldsSnippet commonResponseFields() {
@@ -119,8 +116,7 @@ class UserControllerTest {
             fieldWithPath("name").type(JsonFieldType.STRING).description("사용자명"),
             fieldWithPath("address").type(JsonFieldType.STRING).description("주소"),
             fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
-            fieldWithPath("gender").type(JsonFieldType.STRING).description("성별")
-        );
+            fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"));
     }
 
     private UserDTO.Result aResultDTO() {

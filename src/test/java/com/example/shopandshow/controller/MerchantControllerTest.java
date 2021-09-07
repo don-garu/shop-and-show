@@ -69,8 +69,7 @@ class MerchantControllerTest {
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 createRequestFields(),
-                commonResponseFields()
-            ));
+                commonResponseFields()));
     }
 
     @Test
@@ -91,35 +90,68 @@ class MerchantControllerTest {
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 loginRequestParams(),
-                commonResponseFields()
-            ));
+                commonResponseFields()));
+    }
+
+    @Test
+    @DisplayName("판매자 계좌 입금")
+    void deposit() throws Exception {
+        // Given
+        when(merchantService.deposit(any()))
+            .thenReturn(aResultDTO());
+
+        // When
+        String body = objectMapper.writeValueAsString(aUpdateDTO());
+
+        ResultActions actions = mockMvc.perform(
+            RestDocumentationRequestBuilders.put("/merchant/deposit")
+                .content(body)
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // Then
+        actions.andExpect(status().isOk())
+            .andDo(document("merchant/deposit",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+                updateRequestFields(),
+                commonResponseFields()));
     }
 
     private RequestParametersSnippet loginRequestParams() {
         return requestParameters(
-            parameterWithName("userId").description("사용자 계정 식별자")
-        );
+            parameterWithName("userId").description("사용자 계정 식별자"));
+    }
+
+    private RequestFieldsSnippet updateRequestFields() {
+        return requestFields(
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("계정 식별자"),
+            fieldWithPath("amount").type(JsonFieldType.NUMBER).description("입금할 금액"));
     }
 
     private RequestFieldsSnippet createRequestFields() {
         return requestFields(
             fieldWithPath("userId").type(JsonFieldType.NUMBER).description("사용자 계정 식별자"),
-            fieldWithPath("wallet").type(JsonFieldType.NUMBER).description("판매자 계좌 초기 금액")
-        );
+            fieldWithPath("wallet").type(JsonFieldType.NUMBER).description("판매자 계좌 초기 금액"));
     }
 
     private ResponseFieldsSnippet commonResponseFields() {
         return responseFields(
             fieldWithPath("id").description("계정 식별자"),
             fieldWithPath("userId").description("사용자 계정 식별자"),
-            fieldWithPath("wallet").description("판매자 계좌 잔액")
-        );
+            fieldWithPath("wallet").description("판매자 계좌 잔액"));
     }
 
     private MerchantDTO.Create aCreateDTO() {
         return MerchantDTO.Create.builder()
             .userId(1)
             .wallet(1000)
+            .build();
+    }
+
+    private MerchantDTO.Update aUpdateDTO() {
+        return MerchantDTO.Update.builder()
+            .id(0)
+            .amount(1000)
             .build();
     }
 

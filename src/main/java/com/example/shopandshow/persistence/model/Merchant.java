@@ -25,4 +25,8 @@ public class Merchant {
         this.wallet = wallet;
         this.user = user;
     }
+
+    public void deposit(Integer amount) {
+        wallet += amount;
+    }
 }

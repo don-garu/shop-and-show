@@ -21,4 +21,12 @@ public interface MerchantDTO {
         Integer userId;
         Integer wallet;
     }
+
+    @Value
+    @Builder
+    class Update {
+
+        Integer id;
+        Integer amount;
+    }
 }

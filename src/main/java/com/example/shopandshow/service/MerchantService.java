@@ -19,37 +19,45 @@ public class MerchantService {
 
     public MerchantDTO.Result create(MerchantDTO.Create dto) {
         User user = userRepository.findById(dto.getUserId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Exists"));
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Exists"));
         Merchant merchant = Merchant.builder()
-                .user(user)
-                .wallet(dto.getWallet())
-                .build();
+            .user(user)
+            .wallet(dto.getWallet())
+            .build();
 
         user.editMerchant(merchant);
 
         merchantRepository.save(merchant);
 
         return MerchantDTO.Result.builder()
-                .id(merchant.getId())
-                .userId(merchant.getUser().getId())
-                .wallet(merchant.getWallet())
-                .build();
+            .id(merchant.getId())
+            .userId(merchant.getUser().getId())
+            .wallet(merchant.getWallet())
+            .build();
     }
 
     public MerchantDTO.Result login(Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Exists"));
-
-        // Todo.
-        // Repository 에서 읽지 않고 user.getMerchant() 하는 것과 무슨 차이가 있을까?
-        Merchant found = merchantRepository.findByUserId(user.getId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Merchant with User " + user.getName() + " Not Exists"));
+        Merchant found = merchantRepository.findByUserId(userId).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "Merchant with User " + userId + " Not Exists"));
 
         return MerchantDTO.Result.builder()
-                .id(found.getId())
-                .userId(user.getId())
-                .wallet(found.getWallet())
-                .build();
+            .id(found.getId())
+            .userId(found.getUser().getId())
+            .wallet(found.getWallet())
+            .build();
+    }
+
+    public MerchantDTO.Result deposit(MerchantDTO.Update dto) {
+        Merchant found = merchantRepository.findById(dto.getId()).orElseThrow(
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Merchant Not Exists"));
+
+        found.deposit(dto.getAmount());
+
+        return MerchantDTO.Result.builder()
+            .id(found.getId())
+            .userId(found.getUser().getId())
+            .wallet(found.getWallet())
+            .build();
     }
 }

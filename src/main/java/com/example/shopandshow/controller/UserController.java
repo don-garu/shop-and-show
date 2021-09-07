@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping("/login")
     public UserDTO.Result login(@RequestParam String name,
-                                @RequestParam String password) {
+        @RequestParam String password) {
         return userService.login(name, password);
     }
 }

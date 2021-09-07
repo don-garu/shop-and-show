@@ -1,11 +1,16 @@
 package com.example.shopandshow.persistence.model;
 
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity
 @Getter
@@ -20,6 +25,9 @@ public class Merchant {
     @OneToOne
     private User user;
 
+    @OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> itemList;
+
     @Builder
     public Merchant(Integer wallet, User user) {
         this.wallet = wallet;
@@ -28,5 +36,9 @@ public class Merchant {
 
     public void deposit(Integer amount) {
         wallet += amount;
+    }
+
+    public void addItem(Item item) {
+        itemList.add(item);
     }
 }

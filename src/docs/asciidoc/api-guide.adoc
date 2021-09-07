@@ -100,3 +100,59 @@ include::{snippets}/merchant/deposit/http-response.adoc[]
 - RESPONSE BODY
 
 include::{snippets}/merchant/deposit/response-fields.adoc[]
+
+== 상품 관리
+
+=== 상품 생성
+
+==== REQUEST
+
+include::{snippets}/item/create/http-request.adoc[]
+
+- REQUEST BODY
+
+include::{snippets}/item/create/request-fields.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/item/create/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/item/create/response-fields.adoc[]
+
+=== 상품 조회
+
+==== REQUEST
+
+include::{snippets}/item/read/http-request.adoc[]
+
+- PATH VARIABLE
+
+include::{snippets}/item/read/path-parameters.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/item/read/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/item/read/response-fields.adoc[]
+
+=== 상품 수정
+
+==== REQUEST
+
+include::{snippets}/item/update/http-request.adoc[]
+
+- REQUEST BODY
+
+include::{snippets}/item/update/request-fields.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/item/update/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/item/update/response-fields.adoc[]

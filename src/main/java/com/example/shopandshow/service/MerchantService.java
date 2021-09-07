@@ -8,6 +8,7 @@ import com.example.shopandshow.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class MerchantService {
     private final MerchantRepository merchantRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public MerchantDTO.Result create(MerchantDTO.Create dto) {
         User user = userRepository.findById(dto.getUserId()).orElseThrow(
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Exists"));
@@ -36,6 +38,7 @@ public class MerchantService {
             .build();
     }
 
+    @Transactional(readOnly = true)
     public MerchantDTO.Result login(Integer userId) {
         Merchant found = merchantRepository.findByUserId(userId).orElseThrow(
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -48,16 +51,17 @@ public class MerchantService {
             .build();
     }
 
+    @Transactional
     public MerchantDTO.Result deposit(MerchantDTO.Update dto) {
-        Merchant found = merchantRepository.findById(dto.getId()).orElseThrow(
+        Merchant merchant = merchantRepository.findById(dto.getId()).orElseThrow(
             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Merchant Not Exists"));
 
-        found.deposit(dto.getAmount());
+        merchant.deposit(dto.getAmount());
 
         return MerchantDTO.Result.builder()
-            .id(found.getId())
-            .userId(found.getUser().getId())
-            .wallet(found.getWallet())
+            .id(merchant.getId())
+            .userId(merchant.getUser().getId())
+            .wallet(merchant.getWallet())
             .build();
     }
 }

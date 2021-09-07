@@ -25,7 +25,7 @@ include::{snippets}/user/create/http-response.adoc[]
 
 - RESPONSE BODY
 
-include::{snippets}/user/create/request-fields.adoc[]
+include::{snippets}/user/create/response-fields.adoc[]
 
 === 계정 로그인
 
@@ -44,3 +44,41 @@ include::{snippets}/user/login/http-response.adoc[]
 - RESPONSE BODY
 
 include::{snippets}/user/login/response-fields.adoc[]
+
+== 판매자 계정 관리
+
+=== 계정 생성
+
+==== REQUEST
+
+include::{snippets}/merchant/create/http-request.adoc[]
+
+- REQUEST BODY
+
+include::{snippets}/merchant/create/request-fields.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/merchant/create/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/merchant/create/response-fields.adoc[]
+
+=== 계정 로그인
+
+==== REQUEST
+
+include::{snippets}/merchant/login/http-request.adoc[]
+
+- REQUEST PARAMS
+
+include::{snippets}/merchant/login/request-parameters.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/merchant/login/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/merchant/login/response-fields.adoc[]

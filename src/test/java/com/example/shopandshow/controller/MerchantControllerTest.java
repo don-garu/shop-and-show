@@ -13,9 +13,8 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.shopandshow.persistence.dto.UserDTO;
-import com.example.shopandshow.persistence.model.Gender;
-import com.example.shopandshow.service.UserService;
+import com.example.shopandshow.persistence.dto.MerchantDTO;
+import com.example.shopandshow.service.MerchantService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,9 +35,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@WebMvcTest(UserController.class)
+@WebMvcTest(MerchantController.class)
 @AutoConfigureRestDocs
-class UserControllerTest {
+class MerchantControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -47,26 +46,26 @@ class UserControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private UserService userService;
+    private MerchantService merchantService;
 
     @Test
-    @DisplayName("사용자 계정 생성")
-    public void create() throws Exception {
+    @DisplayName("판매자 계정 생성")
+    void create() throws Exception {
         // Given
-        when(userService.create(any()))
+        when(merchantService.create(any()))
             .thenReturn(aResultDTO());
 
         // When
         String body = objectMapper.writeValueAsString(aCreateDTO());
 
         ResultActions actions = mockMvc.perform(
-            RestDocumentationRequestBuilders.post("/user/create")
+            RestDocumentationRequestBuilders.post("/merchant/create")
                 .content(body)
                 .contentType(MediaType.APPLICATION_JSON));
 
         // Then
         actions.andExpect(status().isCreated())
-            .andDo(document("user/create",
+            .andDo(document("merchant/create",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 createRequestFields(),
@@ -75,72 +74,60 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("사용자 계정 로그인")
-    public void login() throws Exception {
+    @DisplayName("판매자 계정 로그인")
+    void login() throws Exception {
         // Given
-        when(userService.login(any(), any()))
+        when(merchantService.login(any()))
             .thenReturn(aResultDTO());
 
         // When
         ResultActions actions = mockMvc.perform(
-            RestDocumentationRequestBuilders.get("/user/login")
-                .param("name", "user")
-                .param("password", "password"));
+            RestDocumentationRequestBuilders.get("/merchant/login")
+                .param("userId", "1"));
 
         // Then
         actions.andExpect(status().isOk())
-            .andDo(document("user/login",
+            .andDo(document("merchant/login",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint()),
                 loginRequestParams(),
-                commonResponseFields()));
+                commonResponseFields()
+            ));
     }
 
     private RequestParametersSnippet loginRequestParams() {
         return requestParameters(
-            parameterWithName("name").description("사용자명"),
-            parameterWithName("password").description("비밀번호")
+            parameterWithName("userId").description("사용자 계정 식별자")
         );
     }
 
     private RequestFieldsSnippet createRequestFields() {
         return requestFields(
-            fieldWithPath("name").type(JsonFieldType.STRING).description("사용자명"),
-            fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
-            fieldWithPath("address").type(JsonFieldType.STRING).description("주소"),
-            fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
-            fieldWithPath("gender").type(JsonFieldType.STRING).description("성별")
+            fieldWithPath("userId").type(JsonFieldType.NUMBER).description("사용자 계정 식별자"),
+            fieldWithPath("wallet").type(JsonFieldType.NUMBER).description("판매자 계좌 초기 금액")
         );
     }
 
     private ResponseFieldsSnippet commonResponseFields() {
         return responseFields(
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("계정 식별자"),
-            fieldWithPath("name").type(JsonFieldType.STRING).description("사용자명"),
-            fieldWithPath("address").type(JsonFieldType.STRING).description("주소"),
-            fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
-            fieldWithPath("gender").type(JsonFieldType.STRING).description("성별")
+            fieldWithPath("id").description("계정 식별자"),
+            fieldWithPath("userId").description("사용자 계정 식별자"),
+            fieldWithPath("wallet").description("판매자 계좌 잔액")
         );
     }
 
-    private UserDTO.Result aResultDTO() {
-        return UserDTO.Result.builder()
-            .id(1)
-            .age(10)
-            .name("user")
-            .address("user-address")
-            .gender(Gender.MALE)
+    private MerchantDTO.Create aCreateDTO() {
+        return MerchantDTO.Create.builder()
+            .userId(1)
+            .wallet(1000)
             .build();
     }
 
-    private UserDTO.Create aCreateDTO() {
-        return UserDTO.Create.builder()
-            .age(10)
-            .name("user")
-            .password("password")
-            .address("user-address")
-            .gender(Gender.MALE)
+    private MerchantDTO.Result aResultDTO() {
+        return MerchantDTO.Result.builder()
+            .id(0)
+            .userId(1)
+            .wallet(1000)
             .build();
     }
-
 }

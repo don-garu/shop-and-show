@@ -22,6 +22,12 @@ public class Item {
 
     private String name;
 
+    private String bannerImagePath;
+    private String descriptionImagePath;
+
+    @ManyToOne
+    private Merchant merchant;
+
     @Builder
     public Item(Integer price, Integer remainingQuantity, String name, Merchant merchant) {
         this.price = price;
@@ -31,12 +37,6 @@ public class Item {
         this.descriptionImagePath = descriptionImagePath;
         this.merchant = merchant;
     }
-
-    private String bannerImagePath;
-    private String descriptionImagePath;
-
-    @ManyToOne
-    private Merchant merchant;
 
     public void editRemainingQuantity(Integer remainingQuantity) {
         this.remainingQuantity = remainingQuantity;

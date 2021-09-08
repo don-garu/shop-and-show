@@ -1,5 +1,6 @@
 package com.example.shopandshow.persistence.dto;
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Value;
 
@@ -15,18 +16,20 @@ public interface MerchantDTO {
 
     @Value
     @Builder
+    class Update {
+
+        Integer id;
+        Integer amount;
+    }
+
+    @Value
+    @Builder
     class Result {
 
         Integer id;
         Integer userId;
         Integer wallet;
-    }
 
-    @Value
-    @Builder
-    class Update {
-
-        Integer id;
-        Integer amount;
+        List<ItemDTO.Result> items;
     }
 }

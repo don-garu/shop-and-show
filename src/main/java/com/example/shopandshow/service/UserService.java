@@ -1,6 +1,7 @@
 package com.example.shopandshow.service;
 
 import com.example.shopandshow.persistence.dto.UserDTO;
+import com.example.shopandshow.persistence.dto.mapper.UserDTOMapper;
 import com.example.shopandshow.persistence.model.User;
 import com.example.shopandshow.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserDTOMapper userDTOMapper;
 
     @Transactional
     public UserDTO.Result create(UserDTO.Create dto) {
@@ -26,13 +28,7 @@ public class UserService {
             .build();
         userRepository.save(user);
 
-        return UserDTO.Result.builder()
-            .id(user.getId())
-            .age(user.getAge())
-            .name(user.getName())
-            .address(user.getAddress())
-            .gender(user.getGender())
-            .build();
+        return userDTOMapper.toDTO(user);
     }
 
     @Transactional(readOnly = true)
@@ -44,12 +40,6 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password Not match!");
         }
 
-        return UserDTO.Result.builder()
-            .id(found.getId())
-            .age(found.getAge())
-            .name(found.getName())
-            .address(found.getAddress())
-            .gender(found.getGender())
-            .build();
+        return userDTOMapper.toDTOWithPurchasedItems(found);
     }
 }

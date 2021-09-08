@@ -1,5 +1,6 @@
 package com.example.shopandshow.persistence.model;
 
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class Merchant {
     private User user;
 
     @OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> itemList;
+    private final List<Item> items = new LinkedList<>();
 
     @Builder
     public Merchant(Integer wallet, User user) {
@@ -39,6 +40,6 @@ public class Merchant {
     }
 
     public void addItem(Item item) {
-        itemList.add(item);
+        items.add(item);
     }
 }

@@ -1,15 +1,17 @@
 package com.example.shopandshow.persistence.model;
 
-import com.example.shopandshow.persistence.dto.UserDTO;
+import java.util.LinkedList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 @Getter
@@ -30,6 +32,9 @@ public class User {
     @OneToOne
     private Merchant merchant;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<PurchasedItem> purchasedItems = new LinkedList<>();
+
     @Builder
     public User(Integer age, Gender gender, String name, String password, String address) {
         this.age = age;
@@ -41,5 +46,9 @@ public class User {
 
     public void editMerchant(Merchant merchant) {
         this.merchant = merchant;
+    }
+
+    public void addPurchasedItem(PurchasedItem item) {
+        purchasedItems.add(item);
     }
 }

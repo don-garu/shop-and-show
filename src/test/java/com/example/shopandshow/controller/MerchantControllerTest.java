@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.shopandshow.persistence.dto.MerchantDTO;
 import com.example.shopandshow.service.MerchantService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.LinkedList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -136,9 +137,10 @@ class MerchantControllerTest {
 
     private ResponseFieldsSnippet commonResponseFields() {
         return responseFields(
-            fieldWithPath("id").description("계정 식별자"),
-            fieldWithPath("userId").description("사용자 계정 식별자"),
-            fieldWithPath("wallet").description("판매자 계좌 잔액"));
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("계정 식별자"),
+            fieldWithPath("userId").type(JsonFieldType.NUMBER).description("사용자 계정 식별자"),
+            fieldWithPath("wallet").type(JsonFieldType.NUMBER).description("판매자 계좌 잔액"),
+            fieldWithPath("items").type(JsonFieldType.ARRAY).description("판매 상품 목록"));
     }
 
     private MerchantDTO.Create aCreateDTO() {
@@ -160,6 +162,7 @@ class MerchantControllerTest {
             .id(0)
             .userId(1)
             .wallet(1000)
+            .items(new LinkedList<>())
             .build();
     }
 }

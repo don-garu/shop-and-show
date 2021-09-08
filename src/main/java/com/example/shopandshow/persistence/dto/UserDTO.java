@@ -1,6 +1,7 @@
 package com.example.shopandshow.persistence.dto;
 
 import com.example.shopandshow.persistence.model.Gender;
+import java.util.List;
 import lombok.Builder;
 import lombok.Value;
 
@@ -26,5 +27,7 @@ public interface UserDTO {
         String name;
         String address;
         Gender gender;
+
+        List<PurchasedItemDTO.Result> purchasedItems;
     }
 }

@@ -17,6 +17,7 @@ import com.example.shopandshow.persistence.dto.UserDTO;
 import com.example.shopandshow.persistence.model.Gender;
 import com.example.shopandshow.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.LinkedList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -116,7 +117,8 @@ class UserControllerTest {
             fieldWithPath("name").type(JsonFieldType.STRING).description("사용자명"),
             fieldWithPath("address").type(JsonFieldType.STRING).description("주소"),
             fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
-            fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"));
+            fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"),
+            fieldWithPath("purchasedItems").type(JsonFieldType.ARRAY).description("구매한 상품 목록"));
     }
 
     private UserDTO.Result aResultDTO() {
@@ -126,6 +128,7 @@ class UserControllerTest {
             .name("user")
             .address("user-address")
             .gender(Gender.MALE)
+            .purchasedItems(new LinkedList<>())
             .build();
     }
 

@@ -1,15 +1,19 @@
 package com.example.shopandshow.persistence.model;
 
-import javax.persistence.GeneratedValue;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
+@Document(collection = "post")
 public class Post {
 
+    @Transient
+    public static final String SEQUENCE_NAME = "post_sequence";
+
     @Id
-    @GeneratedValue
     private Integer id;
 
     private Integer userId;
@@ -22,6 +26,10 @@ public class Post {
         this.userId = userId;
         this.imagePath = imagePath;
         this.body = body;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void editImagePath(String imagePath) {

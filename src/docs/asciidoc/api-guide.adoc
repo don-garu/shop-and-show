@@ -156,3 +156,61 @@ include::{snippets}/item/update/http-response.adoc[]
 - RESPONSE BODY
 
 include::{snippets}/item/update/response-fields.adoc[]
+
+== 게시물
+
+=== 게시물 생성
+
+==== REQUEST
+
+include::{snippets}/post/create/http-request.adoc[]
+
+- REQUEST BODY
+
+include::{snippets}/post/create/request-fields.adoc[]
+
+=== 게시물 수정
+
+==== REQUEST
+
+include::{snippets}/post/update/http-request.adoc[]
+
+- REQUEST BODY
+
+include::{snippets}/post/update/request-fields.adoc[]
+
+=== 게시물 조회
+
+==== REQUEST
+
+include::{snippets}/post/read/http-request.adoc[]
+
+- PATH VARIABLE
+
+include::{snippets}/post/read/path-parameters.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/post/read/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/post/read/response-fields.adoc[]
+
+=== 사용자 별 게시물 조회
+
+==== REQUEST
+
+include::{snippets}/post/readAll/http-request.adoc[]
+
+- PATH VARIABLE
+
+include::{snippets}/post/readAll/path-parameters.adoc[]
+
+==== RESPONSE
+
+include::{snippets}/post/readAll/http-response.adoc[]
+
+- RESPONSE BODY
+
+include::{snippets}/post/readAll/response-fields.adoc[]

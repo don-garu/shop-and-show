@@ -1,7 +1,7 @@
 package com.example.shopandshow.persistence.dto;
 
 import com.sun.istack.NotNull;
-import io.micrometer.core.lang.Nullable;
+import org.springframework.lang.Nullable;
 import lombok.Builder;
 import lombok.Value;
 

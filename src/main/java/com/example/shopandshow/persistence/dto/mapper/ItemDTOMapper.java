@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ItemDTOMapper {
 
-    public ItemDTO.Result toDTO(Item item) {
+    public ItemDTO.Result toDTO(Item entity) {
         return ItemDTO.Result.builder()
-            .id(item.getId())
-            .name(item.getName())
-            .price(item.getPrice())
-            .remainingQuantity(item.getRemainingQuantity())
-            .bannerImagePath(item.getBannerImagePath())
-            .descriptionImagePath(item.getDescriptionImagePath())
+            .id(entity.getId())
+            .name(entity.getName())
+            .price(entity.getPrice())
+            .remainingQuantity(entity.getRemainingQuantity())
+            .bannerImagePath(entity.getBannerImagePath())
+            .descriptionImagePath(entity.getDescriptionImagePath())
             .build();
     }
 }

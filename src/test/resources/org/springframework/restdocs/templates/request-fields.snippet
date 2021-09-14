@@ -1,11 +1,10 @@
-    |===
-        |Path|Type|Mandatory|Description
+|===
+|Path|Type|Mandatory|Description
+{{#fields}}
+|{{#tableCellContent}}`+{{path}}+`{{/tableCellContent}}
+|{{#tableCellContent}}`+{{type}}+`{{/tableCellContent}}
+|{{#tableCellContent}}{{^optional}}Y{{/optional}}{{/tableCellContent}}
+|{{#tableCellContent}}{{description}}{{/tableCellContent}}
 
-    {{#fields}}
-        |{{#tableCellContent}}`+{{path}}+`{{/tableCellContent}}
-        |{{#tableCellContent}}`+{{type}}+`{{/tableCellContent}}
-        |{{#tableCellContent}}{{^optional}}Y{{/optional}}{{/tableCellContent}}
-        |{{#tableCellContent}}{{description}}{{/tableCellContent}}
-
-    {{/fields}}
-        |===
+{{/fields}}
+|===
